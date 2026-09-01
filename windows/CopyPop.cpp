@@ -6,8 +6,8 @@
 #endif
 #define WIN32_LEAN_AND_MEAN
 
-#include <shellapi.h>
 #include <windows.h>
+#include <shellapi.h>
 
 #include <algorithm>
 #include <cwctype>
@@ -25,9 +25,29 @@ constexpr int kMaxPreviewChars = 4096;
 constexpr UINT_PTR kHideTimer = 1;
 constexpr UINT kToastVisibleMs = 650;
 
+#ifdef COPYPOP_ENGLISH
+constexpr const wchar_t* kCopied = L"Copied";
+constexpr const wchar_t* kCopiedContent = L"Content copied";
+constexpr const wchar_t* kCopiedImage = L"Image copied";
+constexpr const wchar_t* kEmptyFileName = L"File";
+constexpr const wchar_t* kCopiedFile = L"File copied";
+constexpr const wchar_t* kCopiedFilePrefix = L"File copied: ";
+constexpr const wchar_t* kCopiedTextPrefix = L"Copied: ";
+constexpr const wchar_t* kExitCopyPop = L"Quit CopyPop";
+#else
+constexpr const wchar_t* kCopied = L"已复制";
+constexpr const wchar_t* kCopiedContent = L"已复制内容";
+constexpr const wchar_t* kCopiedImage = L"已复制图片";
+constexpr const wchar_t* kEmptyFileName = L"文件";
+constexpr const wchar_t* kCopiedFile = L"已复制文件";
+constexpr const wchar_t* kCopiedFilePrefix = L"已复制文件：";
+constexpr const wchar_t* kCopiedTextPrefix = L"已复制：";
+constexpr const wchar_t* kExitCopyPop = L"退出 CopyPop";
+#endif
+
 HWND g_mainWindow = nullptr;
 HWND g_toastWindow = nullptr;
-std::wstring g_message = L"已复制";
+std::wstring g_message = kCopied;
 NOTIFYICONDATAW g_tray = {};
 
 std::wstring CollapseWhitespace(const std::wstring& text) {
@@ -64,13 +84,13 @@ std::wstring TextNotice(const std::wstring& text) {
     if (cleaned.empty()) {
         return L"";
     }
-    return L"已复制：" + Truncate(cleaned);
+    return std::wstring(kCopiedTextPrefix) + Truncate(cleaned);
 }
 
 std::wstring FileNameFromPath(const std::wstring& path) {
     const size_t pos = path.find_last_of(L"\\/");
     if (pos == std::wstring::npos || pos + 1 >= path.size()) {
-        return path.empty() ? L"文件" : path;
+        return path.empty() ? kEmptyFileName : path;
     }
     return path.substr(pos + 1);
 }
@@ -85,17 +105,21 @@ std::wstring FileNotice(HDROP drop) {
         return L"";
     }
     if (count > 1) {
+#ifdef COPYPOP_ENGLISH
+        return std::to_wstring(count) + L" files copied";
+#else
         return L"已复制 " + std::to_wstring(count) + L" 个文件";
+#endif
     }
 
     const UINT len = DragQueryFileW(drop, 0, nullptr, 0);
     if (len == 0) {
-        return L"已复制文件";
+        return kCopiedFile;
     }
 
     std::vector<wchar_t> buffer(len + 1);
     DragQueryFileW(drop, 0, buffer.data(), static_cast<UINT>(buffer.size()));
-    return L"已复制文件：" + Truncate(FileNameFromPath(buffer.data()));
+    return std::wstring(kCopiedFilePrefix) + Truncate(FileNameFromPath(buffer.data()));
 }
 
 std::wstring ClipboardText() {
@@ -128,7 +152,7 @@ bool HasImage() {
 
 std::wstring ClipboardNotice() {
     if (!OpenClipboard(g_mainWindow)) {
-        return L"已复制内容";
+        return kCopiedContent;
     }
 
     std::wstring message;
@@ -138,7 +162,7 @@ std::wstring ClipboardNotice() {
     }
 
     if (message.empty() && HasImage()) {
-        message = L"已复制图片";
+        message = kCopiedImage;
     }
 
     if (message.empty() && IsClipboardFormatAvailable(CF_UNICODETEXT)) {
@@ -146,7 +170,7 @@ std::wstring ClipboardNotice() {
     }
 
     CloseClipboard();
-    return message.empty() ? L"已复制内容" : message;
+    return message.empty() ? kCopiedContent : message;
 }
 
 void PositionToastNearCursor(HWND hwnd) {
@@ -171,8 +195,16 @@ void PositionToastNearCursor(HWND hwnd) {
         y = cursor.y - kToastHeight - offset;
     }
 
-    x = std::clamp(x, work.left + margin, work.right - kToastWidth - margin);
-    y = std::clamp(y, work.top + margin, work.bottom - kToastHeight - margin);
+    x = std::clamp(
+        x,
+        static_cast<int>(work.left + margin),
+        static_cast<int>(work.right - kToastWidth - margin)
+    );
+    y = std::clamp(
+        y,
+        static_cast<int>(work.top + margin),
+        static_cast<int>(work.bottom - kToastHeight - margin)
+    );
 
     SetWindowPos(
         hwnd,
@@ -215,7 +247,7 @@ void RemoveTrayIcon() {
 
 void ShowTrayMenu(HWND hwnd) {
     HMENU menu = CreatePopupMenu();
-    AppendMenuW(menu, MF_STRING, ID_TRAY_EXIT, L"退出 CopyPop");
+    AppendMenuW(menu, MF_STRING, ID_TRAY_EXIT, kExitCopyPop);
 
     POINT cursor;
     GetCursorPos(&cursor);

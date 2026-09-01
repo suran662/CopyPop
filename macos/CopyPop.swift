@@ -4,6 +4,30 @@ private let pollInterval: TimeInterval = 0.22
 private let toastVisibleSeconds: TimeInterval = 0.65
 private let previewLimit = 54
 
+private enum CopyPopStrings {
+#if COPYPOP_ENGLISH
+    static let copied = "Copied"
+    static let copiedContent = "Content copied"
+    static let copiedImage = "Image copied"
+    static let emptyFileName = "File"
+    static let quit = "Quit CopyPop"
+
+    static func copiedText(_ preview: String) -> String { "Copied: " + preview }
+    static func copiedFile(_ name: String) -> String { "File copied: " + name }
+    static func copiedFiles(_ count: Int) -> String { "\(count) files copied" }
+#else
+    static let copied = "已复制"
+    static let copiedContent = "已复制内容"
+    static let copiedImage = "已复制图片"
+    static let emptyFileName = "文件"
+    static let quit = "退出 CopyPop"
+
+    static func copiedText(_ preview: String) -> String { "已复制：" + preview }
+    static func copiedFile(_ name: String) -> String { "已复制文件：" + name }
+    static func copiedFiles(_ count: Int) -> String { "已复制 \(count) 个文件" }
+#endif
+}
+
 private func collapsedWhitespace(_ text: String) -> String {
     text.split(whereSeparator: { $0.isWhitespace }).joined(separator: " ")
 }
@@ -20,7 +44,7 @@ private func textNotice(_ text: String) -> String? {
     if cleaned.isEmpty {
         return nil
     }
-    return "已复制：" + truncated(cleaned)
+    return CopyPopStrings.copiedText(truncated(cleaned))
 }
 
 private final class ClipboardMonitor {
@@ -40,21 +64,21 @@ private final class ClipboardMonitor {
         let files = fileURLs()
         if !files.isEmpty {
             if files.count == 1 {
-                let name = files[0].lastPathComponent.isEmpty ? "文件" : files[0].lastPathComponent
-                return "已复制文件：" + truncated(name)
+                let name = files[0].lastPathComponent.isEmpty ? CopyPopStrings.emptyFileName : files[0].lastPathComponent
+                return CopyPopStrings.copiedFile(truncated(name))
             }
-            return "已复制 \(files.count) 个文件"
+            return CopyPopStrings.copiedFiles(files.count)
         }
 
         if hasImage() {
-            return "已复制图片"
+            return CopyPopStrings.copiedImage
         }
 
         if let text = pasteboard.string(forType: .string), let message = textNotice(text) {
             return message
         }
 
-        return "已复制内容"
+        return CopyPopStrings.copiedContent
     }
 
     private func fileURLs() -> [URL] {
@@ -81,7 +105,7 @@ private final class ClipboardMonitor {
 
 private final class ToastView: NSView {
     private let check = NSTextField(labelWithString: "✓")
-    private let label = NSTextField(labelWithString: "已复制")
+    private let label = NSTextField(labelWithString: CopyPopStrings.copied)
 
     var message: String {
         get { label.stringValue }
@@ -233,7 +257,7 @@ private final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "退出 CopyPop", action: #selector(quit), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: CopyPopStrings.quit, action: #selector(quit), keyEquivalent: "q"))
         item.menu = menu
         statusItem = item
     }

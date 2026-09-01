@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">CopyPop usage preview</title>
+  <desc id="desc">After you copy text, an image, or a file, CopyPop shows a brief notification near the mouse.</desc>
+  <rect width="1200" height="560" rx="20" fill="#f5f7fa"/>
+  <text x="64" y="78" fill="#172033" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="32" font-weight="700">Copy once. Know it worked.</text>
+  <text x="64" y="114" fill="#687386" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17">Text, images, and files are recognized. The notification appears near your mouse.</text>
+  <rect x="64" y="158" width="382" height="330" rx="14" fill="#ffffff" stroke="#dce2ea"/>
+  <circle cx="91" cy="185" r="6" fill="#ff7b72"/>
+  <circle cx="111" cy="185" r="6" fill="#f2cc60"/>
+  <circle cx="131" cy="185" r="6" fill="#56d364"/>
+  <rect x="88" y="232" width="236" height="14" rx="7" fill="#d9dee7"/>
+  <rect x="88" y="264" width="310" height="14" rx="7" fill="#d9dee7"/>
+  <rect x="84" y="294" width="282" height="66" rx="8" fill="#d9f4e5"/>
+  <rect x="96" y="308" width="246" height="14" rx="7" fill="#76c893"/>
+  <rect x="96" y="334" width="188" height="14" rx="7" fill="#76c893"/>
+  <rect x="153" y="397" width="204" height="52" rx="8" fill="#202938"/>
+  <text x="255" y="430" text-anchor="middle" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="600">⌘ C  Copy</text>
+  <circle cx="92" cy="464" r="16" fill="#1f8f55"/>
+  <text x="92" y="470" text-anchor="middle" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700">1</text>
+  <text x="120" y="470" fill="#3e495c" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="600">Copy something</text>
+  <path d="M475 323h92" fill="none" stroke="#a7b0be" stroke-width="3" stroke-linecap="round"/>
+  <path d="m555 311 14 12-14 12" fill="none" stroke="#a7b0be" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="521" cy="284" r="16" fill="#1f8f55"/>
+  <text x="521" y="290" text-anchor="middle" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700">2</text>
+  <text x="521" y="365" text-anchor="middle" fill="#687386" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15">Recognized</text>
+  <rect x="596" y="158" width="540" height="330" rx="14" fill="#e9edf3" stroke="#dce2ea"/>
+  <rect x="628" y="190" width="476" height="266" rx="10" fill="#ffffff"/>
+  <rect x="654" y="216" width="136" height="15" rx="7" fill="#d9dee7"/>
+  <rect x="654" y="250" width="314" height="12" rx="6" fill="#e5e9ef"/>
+  <rect x="654" y="277" width="248" height="12" rx="6" fill="#e5e9ef"/>
+  <rect x="811" y="327" width="269" height="58" rx="29" fill="#20242b"/>
+  <circle cx="842" cy="356" r="16" fill="#5bd68a"/>
+  <text x="842" y="362" text-anchor="middle" fill="#102719" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="800">✓</text>
+  <text x="868" y="362" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="600">Copied: a short preview</text>
+  <path d="M793 303 819 370 835 346 862 338Z" fill="#ffffff" stroke="#263041" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="624" cy="464" r="16" fill="#1f8f55"/>
+  <text x="624" y="470" text-anchor="middle" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700">3</text>
+  <text x="652" y="470" fill="#3e495c" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="600">A brief notification near the mouse</text>
+</svg>
