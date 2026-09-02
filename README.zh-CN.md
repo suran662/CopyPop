@@ -16,12 +16,15 @@ CopyPop 是一个轻量的复制提示器。复制文本、图片或文件时，
 ## Windows 下载与使用
 
 1. 打开 [Windows 发布页面](https://github.com/suran662/CopyPop/releases/tag/v0.1.0)。
-2. 在 **Assets** 中点击 `CopyPop-Windows-x64.exe`。
+2. 在 **Assets** 中按界面语言选择：
+   - 中文版：`CopyPop-Windows-x64-zh-CN.exe`
+   - 英文版：`CopyPop-Windows-x64-en.exe`
 3. 下载完成后，双击这个 `.exe` 文件。
 4. 如果 Windows SmartScreen 弹出提示，点击**更多信息** → **仍要运行**。
 5. 看到时钟旁边的 CopyPop 图标就表示已经运行。现在复制任意内容试试。
 
 支持 64 位 Windows 10 和 Windows 11。
+每个安装包的界面语言是固定的。
 
 ## macOS 下载与使用
 

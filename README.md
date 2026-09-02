@@ -16,12 +16,15 @@ CopyPop shows a short notification near your mouse whenever you copy text, an im
 ## Download and run on Windows
 
 1. Open the [Windows release](https://github.com/suran662/CopyPop/releases/tag/v0.1.0).
-2. Under **Assets**, click `CopyPop-Windows-x64.exe`.
+2. Under **Assets**, choose the interface language:
+   - English: `CopyPop-Windows-x64-en.exe`
+   - Simplified Chinese: `CopyPop-Windows-x64-zh-CN.exe`
 3. When the download finishes, double-click the `.exe` file.
 4. If Windows SmartScreen appears, click **More info** → **Run anyway**.
 5. Look for the CopyPop icon near the clock. Copy something to try it.
 
 Supports 64-bit Windows 10 and Windows 11.
+The interface language is fixed in each package.
 
 ## Download and run on macOS
 
